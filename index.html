@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+  
+ 
+  <form>
+  <input type="radio"           Id="rmsValue" name="rms" value="rms<1" >rms is less than 1
+  <br>
+  <input type="radio" Id="rmsValue" name="rms" value="rms>1">rms is more than or equal to 1
+    <br>
+  <input type="submit" value="Submit"> 
+  </form>
+  <br>
+  
+ 
+  <div id="map"></div>
+  
+<script id="jsbin-javascript">
+var map = L.map('map').setView([20.731649, -10.977814], 1);
+L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+  maxZoom: 18
+}).addTo(map);
+
+/*I know this looks funky. Just checking if It is possible to extract the query and maybe tie it to the radio button value */
+
+var filterQuery = '%20mag%20%3E=%208';
+
+var url = 'https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE' + filterQuery + '&format=GeoJSON';
+
+
+$.getJSON(url, function(data) {
+  geoJsonLayer.addData(data);
+});
+
+// declare geoJsonLayer
+
+var geoJsonLayer = L.geoJson().addTo(map);
+
+
+// radio buttons
+$('form').submit(function(event) {
+  var rmsValue = $("input:radio[name=rms]:checked").val();
+
+  if (rmsValue === "rms<1") {
+    console.log("rms is less than 1");
+    geoJsonLayer.clearLayers();
+    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms<1&format=GeoJSON').done(function(data) {
+      geoJsonLayer.addData(data);
+    });
+  } else {
+    console.log("rms is more than or equal to 1");
+    geoJsonLayer.clearLayers();
+    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms>1&format=GeoJSON').done(function(data) {
+      geoJsonLayer.addData(data);
+    });
+  }
+  event.preventDefault();
+});
+</script>
+ 
+<script id="jsbin-source-html" type="text/html"><!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"><\/script>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"><\/script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+  
+
+  <form>
+  <input type="radio"           Id="rmsValue" name="rms" value="rms<1" >rms is less than 1
+  <br>
+  <input type="radio" Id="rmsValue" name="rms" value="rms>1">rms is more than or equal to 1
+    <br>
+  <input type="submit" value="Submit"> 
+  </form>
+  <br>
+  
+
+  <div id="map"></div>
+  
+</body>
+</html></script>
+ 
+<script id="jsbin-source-css" type="text/css">html, body {
+  height: 100%;
+  width: 100%;
+}
+ 
+#map {
+  height: 100%;
+  width: 100%;
+}
+</script>
+ 
+<script id="jsbin-source-javascript" type="text/javascript">var map = L.map('map').setView([20.731649, -10.977814], 1);
+L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+  maxZoom: 18
+}).addTo(map);
+
+/*I know this looks funky. Just checking if It is possible to extract the query and maybe tie it to the radio button value */
+
+var filterQuery = '%20mag%20%3E=%208';
+
+var url = 'https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE' + filterQuery + '&format=GeoJSON';
+
+
+$.getJSON(url, function(data) {
+  geoJsonLayer.addData(data);
+});
+
+// declare geoJsonLayer
+
+var geoJsonLayer = L.geoJson().addTo(map);
+
+
+// radio buttons
+$('form').submit(function(event) {
+  var rmsValue = $("input:radio[name=rms]:checked").val();
+
+  if (rmsValue === "rms<1") {
+    console.log("rms is less than 1");
+    geoJsonLayer.clearLayers();
+    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms<1&format=GeoJSON').done(function(data) {
+      geoJsonLayer.addData(data);
+    });
+  } else {
+    console.log("rms is more than or equal to 1");
+    geoJsonLayer.clearLayers();
+    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms>1&format=GeoJSON').done(function(data) {
+      geoJsonLayer.addData(data);
+    });
+  }
+  event.preventDefault();
+});</script></body>
+</html>

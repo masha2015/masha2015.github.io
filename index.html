@@ -1,161 +1,369 @@
 <!DOCTYPE html>
 <html>
+ 
 <head>
-    
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <title>Plain Leaflet API</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+ 
   <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 
+  <script src="http://openplans.github.io/Leaflet.AnimatedMarker/src/AnimatedMarker.js"></script>
   <meta charset="utf-8">
   <title>JS Bin</title>
 <style id="jsbin-css">
 html, body {
   height: 100%;
   width: 100%;
+  border:0;
+  margin:0;
+}
+
+p {
+  display: block;
+  font-family: Verdana;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 20px;
+  font-weight: normal;
+}
+
+
+#heading{
+  background-color:rgba(255, 255, 255, 0.9);
+  position:fixed;
+  width: 320px;
+  border-top: 20px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+#content {
+  width: 1024px;
+  border:0;
+  margin-top: 0;
+  margin-left: auto ;
+  margin-right: auto ;
 }
 
 #map {
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  height: 600px;
+  width: 600px;
+  border-radius: 300px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 100px;
 }
+
+#map-border {
+  position: fixed;
+  height: 600px;
+  width: 600px;
+  border-radius: 300px;
+  float: left;
+  margin-top: 80px;
+}
+
+.sssmallbold {
+  font-family: Verdana;
+  font-size: 11px;
+  font-style: normal;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.sshead-small {
+    font-family: Verdana;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 22px;
+    font-weight: normal;
+}
+
+#timeline {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  margin:0px;
+  border:0px;
+  padding-left: 20px;
+  float: right;
+  width: 320px;
+}
+
+#place{
+  color: rgb(255, 0, 0);
+  font-style: normal;
+}
+
+.marker-highlight{
+  
+}
+
+.my-div-icon {
+  height: 10px;
+  width: 10px;
+  border-radius: 5px;
+  background-color: yellow;
+  opacity: 0.5;  
+}
+
+input {
+  border: 1;
+  border-radius: 0px; 
+  color: rgb(255, 0, 0); 
+  font-weight: bold;
+}
+
 </style>
 </head>
+ 
 <body>
-  
  
-  <form>
-  <input type="radio"           Id="rmsValue" name="rms" value="rms<1" >rms is less than 1
-  <br>
-  <input type="radio" Id="rmsValue" name="rms" value="rms>1">rms is more than or equal to 1
-    <br>
-  <input type="submit" value="Submit"> 
-  </form>
-  <br>
-  
+  <div id="content">
  
-  <div id="map"></div>
-  
+    <div id="map-border"><img src="http://i57.tinypic.com/11jpyms.jpg" width=638px>
+    </div>
+    <div id="map"></div>
+ 
+ 
+    <div id="timeline">
+ 
+      <div id="heading">
+    <p style="font-size: 18px;">Crimean Tatar language evolution
+    </p>
+    <input type="button" id="aMarker" style="margin-bottom: 10px;" value="Trace migration">
+    </div><br>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerOne()">
+        <p style="margin-top: 130px;">
+          <i><span class="sssmallbold">early 8th century AD</span></i>
+          <br>
+          <cite><span id="place">Orhon Valley</span></cite>
+        </p>
+        <img src="https://s-media-cache-ak0.pinimg.com/736x/49/5d/c4/495dc40eff2223ed05a68e711e7627fd.jpg" width=90%>
+        <p>Crimean Tatar belongs to the Kipchak branch of the Turkic language family. The first established records of the Turkic languages are the eighth century Orkhon inscriptions by the Göktürks, recording the Old Turkic language, which were discovered
+          in 1889 in the Orkhon Valley in Mongolia. The two famous monuments known as the Orkhon Inscriptions, erected in honour of the two Turkish princes, Kül-Tegin and his brother Bilgä Kagan, though mentioned in Chinese histories, remained forgotten
+          and ignored down to quite recent times. They stand near the Lake Kocho Tsaīdam, to the west of the River Orkhon, about 50 miles north of the monastery of Erdentso (the site of the ancient city of Kara Korum), and about 25 miles to the north-west
+          of the ruins of the capital of the Uighurs, Kara-Balgassun. They contain long Turkish inscriptions in Runic characters on three sides, and on one side (the western) the inscription is in Chinese.</p>
+        <br>
+      </div>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerTwo()">
+        <p>
+          <i><span class="sssmallbold">1077</span></i>
+          <br>
+          <cite><span id="place">Kashi Kaxgar</span></cite>
+        </p>
+        <img src="http://upload.wikimedia.org/wikipedia/commons/b/bc/Kashgari_map.jpg" width=90%>
+        <p>The Compendium of the Turkic Dialects (Divânü Lügati't-Türk), written during the 11th century by Kaşgarlı Mahmud of the Kara-Khanid Khanate, constitutes an early linguistic treatment of the family. The Compendium is the first encyclopedic lexicon
+          of the Turkic dialects, and contains specimens of old Turkic poetry in the typical form of quatrains (Persio-Arabic رباعیات rubāiyāt; Turkish: dörtlük), representing all the principal genres: epic, pastoral, didactic, lyric, and elegiac. His
+          book also included the first known map of the areas inhabited by Turkic peoples. This map is housed at the National Library in Istanbul. The Diwan Lughat at-Turk mainly pertains to the Southwestern, or Oghuz, branch of the family. It was intended
+          for use by the Caliphs of Baghdad, the new, Arabic allies of the Turks. </p>
+        <br>
+      </div>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerThree()">
+        <p>
+          <i><span class="sssmallbold">1303</span></i>
+          <br>
+          <cite><span id="place">North of Black Sea</span></cite>
+        </p>
+        <img src="http://i59.tinypic.com/30upkl0.jpg" width=90%>
+        <p>The main record of Old Kipchak is the Codex Cumanicus, compiled in the 14th century by Christian missionaries. The Codex likely developed over time. Mercantile, political and religious leaders, particularly in Hungary, sought effective communication
+          with the Cumans from the time of their ascendency in the mid-11th century. As Italian city-states such as Genoa began to establish trade posts and colonies along the Black Sea coastline, the need for tools to learn the Kipchak language sharply
+          increased. Kipchak dictionaries and grammars were written in Egypt and Syria under the Mamlūk dynasty. In the smaller khanates that emerged at the disintegration of the Golden Horde (15th century), Old Kipchak remained in use. It persisted in
+          Crimea until the 17th century, and essentially the same literary language was used in the khanate of Kazan. In the codex the language is called comanicum (chomanicho) in Latin but tatar til (or tataṛče) in Turkish. It came into the possession
+          of the Italian poet and biblio­phile Petrarch (Francesco Petrarca), who presented it as part of his library to the Venetian Republic in 1362.</p>
+        <br>
+      </div>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerThree()">
+        <p>
+          <i><span class="sssmallbold">1896</span></i>
+          <br>
+          <cite><span id="place">Crimea</span></cite>
+        </p>
+        <p>The story of Čora Batir, a 14th century hero of the Crimean Khanate, is the best-known and most popular Crimean Tatar epic of Kipchak origin. The heroic poem of Čora Batir became widely known among the Kipchak people. The longest variants were
+          recorded among the Kazaks. They were first published by I. Berezin in 1862. Soon the famous Turcologist, V. V. Radloff published three versions of the epic collected in the Crimea. In Radloff’s work there is a tale relating a competition between
+          Čora and three Kazan warriors, which was recorded in Bahchisaray and two epic fragments of equal length (Radloff 1896, pp. 21–22, 122–132, 167–183).</p>
+        <br>
+      </div>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerFour()">
+        <p>
+          <i><span class="sssmallbold">late 19th century</span></i>
+          <br>
+          <cite><span id="place">Dobrudja</span></cite>
+        </p>
+        <p>Čora Batir....In the 19th century the growing number of Nogays who were forced to leave their home took their favourite heroic poem to their new home, Dobrudja, which belonged to the Ottoman Empire and later became part of Romania and Bulgaria.
+          Hungarian Turcologist and member of the Hungarian Academy of Sciences, Ignác Kúnos, had an opportunity to deal with the Crimean Tatar epic twice in his career. First he managed to write down some of the characteristic songs in Dobrudja in the
+          years prior to World War I, then in the summer of 1915 he could record the whole text, which was told to him by some Crimean Tatar prisoners-of-war held in a camp in Kenyérmező, near the Hungarian town Esztergom. In 1931 Saadet Is’haki (S. Çagatay)
+          recorded the text of the epic told by an elderly storyteller in the village of Azaplar near Constanza (Is’haki 1935, pp. 5–19)</p>
+        <br>
+      </div>
+ 
+      <div class="marker-highlight" onmouseover="bigMarkerFive()">
+        <p>
+          <i><span class="sssmallbold">1939</span></i>
+          <br>
+          <cite><span id="place">Eskişehi</span></cite>
+        </p>
+        <p>Čora Batir....Up to this date only one variant has been published in Turkey, which was recorded in a village founded by Crimean refugees called Karakaya near Eskişehir in September 1939 (Karakaya 1965, pp. 22–27, 30–32). But the story of Čora
+          Batir was far more popular with the Tatar emigrants in Turkey than one could surmise from the only edition.
+        </p>
+        <br>
+      </div>
+
+    </div>
+ 
+  </div>
+ 
 <script id="jsbin-javascript">
-var map = L.map('map').setView([20.731649, -10.977814], 1);
-L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-  maxZoom: 18
-}).addTo(map);
+//////////////////////////////////
 
-/*I know this looks funky. Just checking if It is possible to extract the query and maybe tie it to the radio button value */
+// mapbox Map
 
-var filterQuery = '%20mag%20%3E=%208';
+//////////////////////////////////
 
-var url = 'https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE' + filterQuery + '&format=GeoJSON';
+L.mapbox.accessToken = 'pk.eyJ1IjoibWFzaGFtZyIsImEiOiJzUGlkcVJNIn0.Z03_H5y7ToS3K761xTlG5A';
+// Replace 'examples.map-i87786ca' with your map id.
+var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/mashamg.957dec40/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
+  attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+});
 
+var map = L.map('map')
+  .addLayer(mapboxTiles)
+  .setView([29.491101, 76.004228], 2);
+
+
+
+//////////////////////////////////
+
+// loads markers
+
+//////////////////////////////////
+
+var myIcon = L.divIcon({
+  className: 'my-div-icon'
+});
+// you can set .my-div-icon styles in CSS
+
+//L.marker([39.491101, 76.004228], {icon: myIcon}).addTo(map);
+
+var url = 'https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20crimean_tatar_language%20WHERE%20final=%27yes%27&format=GeoJSON';
 
 $.getJSON(url, function(data) {
+  console.log("got data");
   geoJsonLayer.addData(data);
 });
 
 // declare geoJsonLayer
 
-var geoJsonLayer = L.geoJson().addTo(map);
-
-
-// radio buttons
-$('form').submit(function(event) {
-  var rmsValue = $("input:radio[name=rms]:checked").val();
-
-  if (rmsValue === "rms<1") {
-    console.log("rms is less than 1");
-    geoJsonLayer.clearLayers();
-    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms<1&format=GeoJSON').done(function(data) {
-      geoJsonLayer.addData(data);
-    });
-  } else {
-    console.log("rms is more than or equal to 1");
-    geoJsonLayer.clearLayers();
-    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms>1&format=GeoJSON').done(function(data) {
-      geoJsonLayer.addData(data);
+var geoJsonLayer = L.geoJson(null, {
+  pointToLayer: function(featureData, latlng) {
+    return L.marker(latlng, {
+      icon: myIcon
     });
   }
-  event.preventDefault();
-});
-</script>
- 
-<script id="jsbin-source-html" type="text/html"><!DOCTYPE html>
-<html>
-<head>
-    
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"><\/script>
-  <script src="//code.jquery.com/jquery-2.1.1.min.js"><\/script>
-  <meta charset="utf-8">
-  <title>JS Bin</title>
-</head>
-<body>
-  
-
-  <form>
-  <input type="radio"           Id="rmsValue" name="rms" value="rms<1" >rms is less than 1
-  <br>
-  <input type="radio" Id="rmsValue" name="rms" value="rms>1">rms is more than or equal to 1
-    <br>
-  <input type="submit" value="Submit"> 
-  </form>
-  <br>
-  
-
-  <div id="map"></div>
-  
-</body>
-</html></script>
- 
-<script id="jsbin-source-css" type="text/css">html, body {
-  height: 100%;
-  width: 100%;
-}
- 
-#map {
-  height: 100%;
-  width: 100%;
-}
-</script>
- 
-<script id="jsbin-source-javascript" type="text/javascript">var map = L.map('map').setView([20.731649, -10.977814], 1);
-L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-  maxZoom: 18
 }).addTo(map);
 
-/*I know this looks funky. Just checking if It is possible to extract the query and maybe tie it to the radio button value */
-
-var filterQuery = '%20mag%20%3E=%208';
-
-var url = 'https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE' + filterQuery + '&format=GeoJSON';
 
 
-$.getJSON(url, function(data) {
-  geoJsonLayer.addData(data);
+//////////////////////////////////
+
+// calls Leaflet plugin js
+
+//////////////////////////////////
+
+// defines the path
+
+var line = L.polyline([
+    [47.431111, 102.659444],
+    [47.431111, 102.659444],
+    [39.491101, 76.004228],
+    [48.8251139, 58.1380177],
+    [48.6704194, 44.5067075],
+    [45.38736, 34.151377],
+    [44.1812779, 28.629339],
+    [39.513086, 31.246425],
+
+  ]),
+  animatedMarker = L.animatedMarker(line.getLatLngs(), {
+
+    // controls the spped of animation
+    distance: 1600, // meters
+    interval: 8, // milliseconds
+    icon: myIcon,
+  });
+
+map.addLayer(animatedMarker);
+
+// repeats animation on click
+
+$(function() {
+  $('#aMarker').click(function() {
+    console.log('start aMarker');
+    map.removeLayer(animatedMarker);
+
+    animatedMarker = L.animatedMarker(line.getLatLngs(), {
+      autoStart: false,
+      distance: 1600, // meters
+      interval: 8, // milliseconds
+      icon: myIcon,
+    });
+    map.addLayer(animatedMarker);
+    animatedMarker.start();
+    //map.removeLayer(animatedMarker);
+  });
+
 });
 
-// declare geoJsonLayer
 
-var geoJsonLayer = L.geoJson().addTo(map);
+//////////////////////////////////
 
+//Show big markers
 
-// radio buttons
-$('form').submit(function(event) {
-  var rmsValue = $("input:radio[name=rms]:checked").val();
+//////////////////////////////////
 
-  if (rmsValue === "rms<1") {
-    console.log("rms is less than 1");
-    geoJsonLayer.clearLayers();
-    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms<1&format=GeoJSON').done(function(data) {
-      geoJsonLayer.addData(data);
-    });
-  } else {
-    console.log("rms is more than or equal to 1");
-    geoJsonLayer.clearLayers();
-    $.getJSON('https://masha-test.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20earthquakes%20WHERE%20mag%20>=%208AND%20rms>1&format=GeoJSON').done(function(data) {
-      geoJsonLayer.addData(data);
-    });
-  }
-  event.preventDefault();
-});</script></body>
-</html>
+var highlightLayer = L.layerGroup().addTo(map);
+
+$(".marker-highlight").mouseout(function() {
+  mouseOut();
+});
+
+function mouseOut() {
+  highlightLayer.clearLayers();
+}
+
+function bigMarker(coordinates) {
+  var bigIcon = L.icon({
+    iconUrl: 'http://i59.tinypic.com/sowmqa.jpg',
+    iconSize: [30, 30],
+});
+  highlightLayer.addLayer(L.marker(coordinates, {
+    icon: bigIcon
+  }));
+}
+
+function bigMarkerOne() {
+  bigMarker([47.431111, 102.659444]);
+}
+
+function bigMarkerTwo() {
+  bigMarker([39.491101, 76.004228]);
+}
+
+function bigMarkerThree() {
+  bigMarker([45.38736, 34.151377]);
+}
+
+function bigMarkerFour() {
+  bigMarker([44.1812779, 28.629339]);
+}
+
+function bigMarkerFive() {
+  bigMarker([39.513086, 31.246425]);
+}
+</script>
